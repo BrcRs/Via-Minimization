@@ -299,7 +299,16 @@ viaMinimization.c	<~~~| Avancement de la fonction de recherche de cycle.
 Refonte de la structure des dossiers
 Ajustement des makefiles
 
-------{ ^ 10/04/2019 12:00 Ordinateur-Bruce ^ }-----[ Exercice7 ]-----------------
+------{ ^ 10/04/2019 12:00 Ordinateur-Bruce ^ }-----[ Exercice7 ]---------------
 
 
 
+Bugs connus :
+	graph.c
+	└~~~~>	| Des bugs doivent être résolus (chercher BUG dans 
+		| le fichier)
+
+	intersec.c	<~~~| un bug a ete detecte dans sauvegarde_intersection.
+			    | Le programme tourne en boucle.
+
+------{ ^ 10/04/2019 18:00 PPTI-14-301-15 ^ }-----[ Exercice7 ]-----------------

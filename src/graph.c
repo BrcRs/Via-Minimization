@@ -1,8 +1,8 @@
 #include "graph.h"
 
-Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename)
+Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename) // passer le fichier pour consigne BUG
 {
-
+  // charger netlist BUG
   Segment* s;LINE;
 
   Point* pa, *pb;LINE;
@@ -10,7 +10,7 @@ Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename)
   int nbSeg = nb_segment( netlist);LINE;
 
   // En deduire le nombre de sommet n ( = n' * 3)
-  int n = nbSeg * 3;LINE;
+  int n = nbSeg * 3;LINE; // NON, 1 point 1 sommet BUG
 
   // Declarer un graphe G
   Graphe* G;LINE;
@@ -259,9 +259,20 @@ int findMaxY(Graphe* G)
   return maxY;
 }
 
-Cell_sommet new_Cell_sommet(Sommet* sommet, Cell_sommet* suiv)
+Cell_sommet* new_Cell_sommet(Sommet* sommet, Cell_sommet* suiv)
 {
   Cell_sommet* newCS = (Cell_sommet*)malloc(sizeof(Cell_sommet));
   newCS->som = sommet;
   newCS->suiv = suiv;
+  return newCS;
+}
+
+void display_Cell_sommet(Cell_sommet* list)
+{
+  Cell_sommet* curr = list;
+  while (curr != NULL)
+  {
+    printf("%d ", curr->som->numS);
+    curr = curr->suiv;
+  }
 }

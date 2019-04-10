@@ -1,10 +1,11 @@
 /**/
-
-Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M/*, int* T*/)
+#include "viaMinimization.h"
+Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M, int* T)
 {
   Element_listeA* cour;
   int v;
   // detect doit etre une liste chainee de sommets formants de cycle
+
   Cell_sommet* liste = NULL;
 
 
@@ -16,14 +17,18 @@ Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M/*, int
     switch (M[v])
     {
       case 0 :
-      detect = detect_si_cycle_descendant_de_r_rec(G, v, M/*, T*/);
-
-
+      T[v] = r; // Le precedent de v est r
+      //detect = detect_si_cycle_descendant_de_r_rec(G, v, M/*, T*/);
+      break;
       case -1 :
+      T[v] = r; // Le precedent de v est r
       if (M[r] == 1 || M[r] == 2)
       {
         M[v] = M[r] % 2 + 1;
+        liste = detect_si_cycle_descendant_de_r_rec(G, v, M, T);
+
       }
+
       break;
 
       case 1 :
@@ -31,17 +36,25 @@ Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M/*, int
       if (M[r] == 1 || M[r] == 2)
       {
         // On a detecte un cycle impair : stop
-        //int i = r;
+        // Creation de la liste de sommets.
+        // Deja fait.
+        int i = r; // r est le sommet courant, T[r] son predecesseur (?)
         printf("%d", r);
-        /*
+        /**/
         while (T[i] != v)
         {
-        printf("%d", T[i]);
-        i = T[i];
+          // On ajoute le sommet a la liste.
+          liste = new_Cell_sommet(G->tabS[i], liste);
+          printf("%d", T[i]); // T[i] est le numero du sommet precedent i (?)
+          // Sauf que nous ne voulons pas les numeros des sommets mais bien les
+          // sommets eux-memes. G->tabS[r] donne le sommet de numero r dans G.
+
+
+          i = T[i];
         }
-        */
-        detect = 1;
-        return detect;
+        /**/
+        //detect = 1;
+        return liste;
 
       }
 
@@ -50,11 +63,11 @@ Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M/*, int
 
   cour = cour->suiv;
   }
+  return liste;
 }
 
-return liste;
-}
 
+/*
 int detect_si_cycle(Graphe* G)
 {
   int* visit = (int*)malloc(G->nbS * sizeof(int));
@@ -79,13 +92,15 @@ int detect_si_cycle(Graphe* G)
   }
   return detect;
 }
+/**/
 
 Cell_sommet* detecte_cycle_impair(Graphe *G, int* S)
 {
   int* M = (int*)malloc(G->nbS * sizeof(int));
+  int* T = (int*)malloc(G->nbS * sizeof(int)); // tableau de descendance
 
   int i, r = 0;
-  int detect = 0;
+  //int detect = 0;
 
   Cell_sommet* liste = NULL;
 
@@ -93,11 +108,12 @@ Cell_sommet* detecte_cycle_impair(Graphe *G, int* S)
   for (i = 0 ; i < G->nbS ; i++)
   {
     M[i] = S[i] == 0 ? 0 : -1;
+    T[i] = -1;
   }
 
   while ((r < G->nbS) && (liste != NULL))
   {
-    liste = detect_si_cycle_descendant_de_r_rec(G, r, M);
+    liste = detect_si_cycle_descendant_de_r_rec(G, r, M, T);
 
     while ((r < G->nbS) && (M[r] != 0))
     {

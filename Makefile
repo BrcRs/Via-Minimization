@@ -1,12 +1,12 @@
 CC = gcc
-COMPILE = $(CC) -c
+COMPILE = $(CC) -g3 -c
 LINK = $(CC) -o $@
 CFLAGS = -Wall
 
 BINDIR := bin
 SRCDIR := src
 
-PROGRAMS = testGraph
+PROGRAMS = testGraph testMini7
 
 SRCS := src/*.c
 
@@ -34,6 +34,8 @@ check :
 testGraph: testGraph.o generatePostScript.o graph.o $(OBJSA)
 	$(LINK) testGraph.o generatePostScript.o graph.o $(OBJSA)
 
+testMini7: testMini7.o graph.o viaMinimization.o $(OBJSA)
+	$(LINK) testMini7.o viaMinimization.o graph.o $(OBJSA)
 clean:
 	cd PartieA ; make clean
 	-rm -f *.o $(PROGRAMS)

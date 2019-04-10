@@ -48,6 +48,10 @@ void insererArete(ListeA* pLA, Arete* pa);
 void insererTete_ListeA(ListeA* pLA, Element_listeA* pa);
 int findMaxX(Graphe* G);
 int findMaxY(Graphe* G);
+Cell_sommet* new_Cell_sommet(Sommet* sommet, Cell_sommet* suiv);
+void display_Cell_sommet(Cell_sommet* list);
+
+
 
 
 #endif
