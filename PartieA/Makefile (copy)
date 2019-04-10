@@ -1,0 +1,70 @@
+CC = gcc
+COMPILE = $(CC) -c
+LINK = $(CC) -o $@
+CFLAGS = -Wall
+PROGRAMS = testbalayage testintersec testsegListUnion test_tools
+
+all: $(PROGRAMS)
+	mv *.o bin ; mv -t tests $(PROGRAMS)
+
+#Compilation
+
+testbalayage.o: testbalayage.c
+	-$(COMPILE) testbalayage.c
+
+intersec.o: intersec.c tools.h
+	-$(COMPILE) intersec.c
+	
+balayage.o: balayage.c
+	-$(COMPILE) balayage.c
+	
+Netlist.o: Netlist.c
+	-$(COMPILE) Netlist.c
+	
+testintersec.o: testintersec.c
+	-$(COMPILE) testintersec.c
+	
+testsegListUnion.o: testsegListUnion.c 
+	-$(COMPILE) testsegListUnion.c
+	
+test_tools.o: test_tools.c
+	-$(COMPILE) test_tools.c
+
+tools.o: tools.c
+	-$(COMPILE) tools.c
+	
+svgtest.o: svgtest.c
+	-$(COMPILE) svgtest.c
+	
+svgNetlist.o: svgNetlist.c
+	-$(COMPILE) svgNetlist.c
+	
+hachage.o: hachage.c
+	-$(COMPILE) hachage.c
+
+#Edition des liens
+
+testbalayage: testbalayage.o intersec.o balayage.o Netlist.o hachage.o tools.o
+	-$(LINK) testbalayage.o intersec.o balayage.o Netlist.o hachage.o tools.o
+
+testintersec: testintersec.o Netlist.o intersec.o tools.o
+	-$(LINK) testintersec.o Netlist.o intersec.o tools.o
+	
+testsegListUnion: testsegListUnion.o Netlist.o tools.o
+	-$(LINK) testsegListUnion.o Netlist.o tools.o
+
+test_tools: test_tools.o tools.o
+	-$(LINK) test_tools.o tools.o
+
+svgtest: svgtest.o svgNetlist.o
+	-$(LINK) svgtest.o svgNetlist.o
+
+
+clean:
+	rm -f *.o $(PROGRAMS)
+	cd bin; 	rm -f *.o
+	cd tests; 	rm -f $(PROGRAMS)
+
+.PHONY: clean all
+
+

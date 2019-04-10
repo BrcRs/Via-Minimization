@@ -1,0 +1,22 @@
+CC:= gcc
+COMPILE:= $(CC) -c
+LINK:= $(CC) -o $@
+CFLAGS:= -Wall
+EXE:= testbalayage testintersec testsegListUnion test_tools
+
+SRCS := *.c
+
+OBJS:= $(SRCS:.c=.o)
+
+%.o: %.c
+	-$(CC) $(CFLAGS) -MD -MP $< -c -o $@
+
+$(EXE): $(OBJS)
+	-$(CC) $^ -o $@
+
+clean:
+	rm -f *.o $(PROGRAMS)
+
+.PHONY: clean all
+
+-include $(OBJS:.o=.d)

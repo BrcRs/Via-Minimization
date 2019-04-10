@@ -1,0 +1,301 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ce fichier recense toutes les modifications apportees au projet afin de rendre
+la mise a jour de celui-ci plus facile et plus organisee.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+whatsnew.txt
+SVGwriter.c
+SVGwriter.h
+svgNetlist.c
+svgtest.c
+svgNetlist.h
+nets
+monReseau.net -> nets/monReseau.net
+Instance_Netlist
+Instance_Netlist/*
+Netlist.c
+Netlist.h
+------------------- ^ 05/03/2019 ^
+projet-0/
+~	debug.h 			<- ajout de commentaires
++	intersec.c 			<- Creation, ecriture de fonctions
++	intersec.h 			<- Creation, maj
+~	Netlist.c 			<- ajout de commentaires
+~	svgNetlist.c 		<- ajout de commentaires
+~	whatsnew.txt		<- ajout de commentaires, et maj
+
+
+
+------------------- ^ 05/03/2019 18:05 ^
+projet-0/
+~	intersec.c
+	^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+						Finalisation de int 
+						intersection(Netlist* netlist, 
+						Segment* s1, Segment* s2) qui 
+						vérifie si le segment s1 
+						intersecte le segment s2.
+		
+						Ecriture de int 
+						nb_segment(Netlist* netlist)
+						qui renvoie le nombre de
+						segments d'une instance Netlist
+~	intersec.h
+~	Netlist.c			<- Modification de commentaire
+~	Netlist.h			<- Modification de declarations et de structure de 
+						   Netlist
++	testintersec.c		<- Ajout de ce fichier de test
+
+~	whatsnew.txt
+
+TODO :
+- Faire une fonction basename qui extrait le nom sans son extension d'un string.
+- Implementer cette fonction pour donner un nom aux reseaux lorsqu'ils sont 
+crees.
+- Ecrire la fonction sauvegarde_intersection.
+
+------------------- ^ 14/03/2019 07:55 ^
+projet-0/
+~ 	intersec.c
+~	intersec.h
+~	Netlist.c
+~	testintersec.c
++	test_tools.c	<- Fonction de test de la librairie tools.c
++	tools.c			<- Librairie personnelle
++	tools.h
+~	whatsnew.txt
+
+TODO :
+- Finir la fonction tools_lineInFile(~)
+- Finir la question 4
+- Envoyer sur Github
+
+------------------- ^ 15/03/2019 09:45 ^
+projet-0/
+~ 	intersec.c
+~	intersec.h
+~	Netlist.c
+~	tools.c			<~~~| la fonction tools_LineInFile marche mieux quand c'est 
+						| lui-meme qui ouvre le fichier a lire.
+~	tools.h
+~	whatsnew.txt
+
+TODO :
+- La fonction tools_LineInFile n'est pas operationnelle
+
+------------------- ^ 15/03/2019 17:15 ^
+projet-0/
+~	intersec.c
+~	test_tools.c
+~ 	tools.c			<~~~| La fonction tools_LineInFile est operationnelle.
+						| Par consequent, la fonction sauvegarde_intersection
+						| de intersec.c l'est aussi.
+~	tools.h
+~	whatsnew.txt
+
+L'exercice 2 est termine !
+
+------------------- ^ 16/03/2019 8:55 ^
+
+projet-0/
++8	balayage.c		<~~~| Ajout de primitives pour les extremites et 
+						| l'echeancier.
+++	balayage.h
++6	hachage.c		<~~~| Librairie de table de hachage.
+						| Utile pour l'echeancier.
+++	hachage.h
+~~	Netlist.c
+~~	whatsnew.txt
+
+
+Nous allons utiliser une table a adressage direct mais avec resolution des 
+collisions par chainage pour stocker l'echeancier. Ceci nous permettra de garder
+l'ordre des extremites, et facilitera l'ajout et la suppression de ceux-ci.
+
+TODO :
+L'ensemble T des segments horizontaux courants doit etre une liste chainee triee
+ :
+ - Refaire cette structure en consequence; Notamment, faire une structure de 
+ cellule de liste qui garde en memoire l'ordonnee du segment pointe...
+
+------{ ^ 16/03/2019 11:35 ^ }-----[ Exercice3->Q1 ]----------------------------
+
+
+projet-0/
+	balayage.c
+	balayage.h
+	hachage.c
+	whatsnew.txt
+
+
+TODO :
+
+
+------{ ^ 20/03/2019 18:00 ^ }-----[ Exercice3->Q1 ]----------------------------
+
+
+
+projet-0/
+	balayage.c		<~~~| Ecriture de la fonction balayage.
+	balayage.h
+	Netlist.c		<~~~| Sortie des declaration de variables compteurs des
+						└ boucles for
+	testbalayage.c	<~~~| Fonction de test de balayage.c /!\ A FINIR /!\
+	tools.h			<~~~| Ecriture d'une macro MAX et MIN
+	whatsnew.txt
+
+
+TODO :
+
+
+
+------{ ^ 26/03/2019 14:20 ^ }-----[ Exercice3->Q2 ]----------------------------
+
+
+
+
+projet-0/
+	avl.c
+	balayage.c
+	balayage.h
+	hachage.c
+	hachage.h
+	intersec.c
+	Netlist.c
+	Rapport-partie-A.odt
+	whatsnew.txt
+
+
+TODO :
+
+
+
+------{ ^ 27/03/2019 18:00 UPMC ^ }-----[ Exercice3->Q2 ]-----------------------
+
+Grosse Refonte !
+
+Suppressions :
+	projet-0/		<~~~| Suppression du dossier
+	whatsnew.txt	<~~~| whatsnew.txt devient CHANGELOG.txt
+
+Ajouts :
+	Makefile
+	PartieA/
+		Makefile
+
+Modifications :
+
+Nouvelle Arborescence :
+	
+.
++--- CHANGELOG.txt
++--- Makefile
++--- PartieA
+| +--- reseau.h
+| +--- avl.c
+| +--- balayage.c
+| +--- balayage.h
+| +--- bin
+| | +--- balayage.o
+| | +--- hachage.o
+| | +--- intersec.o
+| | +--- Netlist.o
+| | +--- testbalayage.o
+| | +--- testintersec.o
+| | +--- testsegListUnion.o
+| | +--- test_tools.o
+| | +--- tools.o
+| +--- debug.h
+| +--- doc
+| | +--- Rapport-partie-A.odt
+| +--- hachage.c
+| +--- hachage.h
+| +--- inputs
+| | +--- monReseau.net
+| +--- intersec.c
+| +--- intersec.h
+| +--- main.c
+| +--- Makefile
+| +--- monReseau.net
+| +--- Netlist.c
+| +--- Netlist.h
+| +--- nets
+| | +--- Instance_Netlist
+| | | +--- alea0030_030_10_088.net
+| | | +--- alea0030_030_10_088.net.html
+| | | +--- alea0030_030_90_007.net
+| | | +--- alea0100_050_10_097.net
+| | | +--- alea0100_080_90_024.net
+| | | +--- alea0300_300_10_044.net
+| | | +--- alea0300_300_90_099.net
+| | | +--- alea0500_500_10_054.net
+| | | +--- alea0500_500_90_033.net
+| | | +--- c1.net
+| | | +--- c1.net.html
+| | | +--- c4.net
+| | | +--- c5.net
+| | | +--- c5_2.net
+| | | +--- ibm01-10000_2.net
+| | | +--- ibm01-1000_2.net
+| | | +--- ibm01-5000_2.net
+| | | +--- ibm01_2.net
+| | | +--- test.net
+| | | +--- test.net.html
+| | +--- monReseau.net
+| | +--- monReseau.net.html
+| +--- output
+| | +--- output.net
+| +--- svgNetlist.c
+| +--- svgNetlist.h
+| +--- svgtest.c
+| +--- SVGwriter.c
+| +--- SVGwriter.h
+| +--- testbalayage.c
+| +--- testintersec.c
+| +--- tests
+| | +--- testbalayage
+| | +--- testintersec
+| | +--- testsegListUnion
+| | +--- test_tools
+| +--- testsegCount.c
+| +--- testsegListUnion.c
+| +--- test_tools.c
+| +--- tools.c
+| +--- tools.h
++--- PartieB
+
+
+
+------{ ^ 30/03/2019 10:30 Ordinateur-Bruce ^ }-----[ Exercice5->Q1 ]-----------
+
+Modifications :
+	generatePostScript.c	<~~~| Le graphe dessine n'etait pas bien cadre.
+								| Implementation de l'homothetie du graphe 
+								| dessine, en modifiant les coordonnees des 
+								| points en prenant en compte le fait qu'une page 
+								| A4 fait 595 pts de largeur et 842 pts de 
+								| hauteur.
+								
+	graph.c					<~~~| Lors de la lecture du fichier d'intersection,  
+								| seule la premiere ligne etait lue. Le probleme
+								| a ete corrige.
+								
+	Makefile				<~~~| Diverses experimentations ont ete conduites.
+
+------{ ^ 03/04/2019 10:14 Ordinateur-Bruce ^ }-----[ Exercice5->Q2 ]-----------
+
+intersec.c	<~~~| un bug a ete detecte dans sauvegarde_intersection.
+		    | Le programme tourne en boucle. NON-CORRIGE
+
+------{ ^ 03/04/2019 18:00 PPTI-14-301-17 ^ }-----[ Exercice7 ]-----------------
+
+
+intersec.c	<~~~| un bug a ete detecte dans sauvegarde_intersection.
+		    | Le programme tourne en boucle. NON-CORRIGE
+
+viaMinimization.c	<~~~| Avancement de la fonction de recherche de cycle.
+
+------{ ^ 05/04/2019 17:00 PPTI-14-301-19 ^ }-----[ Exercice7 ]-----------------
+
+
+
+
