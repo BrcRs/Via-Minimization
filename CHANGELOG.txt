@@ -296,6 +296,10 @@ viaMinimization.c	<~~~| Avancement de la fonction de recherche de cycle.
 
 ------{ ^ 05/04/2019 17:00 PPTI-14-301-19 ^ }-----[ Exercice7 ]-----------------
 
+Refonte de la structure des dossiers
+Ajustement des makefiles
+
+------{ ^ 10/04/2019 12:00 Ordinateur-Bruce ^ }-----[ Exercice7 ]-----------------
 
 
 
