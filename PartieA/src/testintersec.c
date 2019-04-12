@@ -9,6 +9,7 @@
 
 int main(int nbArgs, char** args)
 {
+  printf("\nAide :\n./testintersec monReseau.net\n");
   Netlist* monNet = saveNetlistFromFile(/*FILENAME*/args[1]);
 
   printf("\nNombre de segments dans %s : %d", /*FILENAME*/args[1], nb_segment(monNet));

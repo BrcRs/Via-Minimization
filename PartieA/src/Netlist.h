@@ -20,6 +20,9 @@ int writeNetlistOnFile(Netlist* netlist, char* filename);
 
 int segListLength(Cell_segment* liste);
 
+int ptsListLength(Cell_point* liste);
+
+
 Cell_segment* segListCat(Cell_segment* aList, Cell_segment* bList);
 
 Cell_segment* segListUnion(Cell_segment* aList, Cell_segment* bList);
@@ -46,5 +49,17 @@ void segListDisplay(Cell_segment* liste, int mode);
 int findMaxXY(Netlist* netlist, int* x, int* y);
 
 int countSegInRes(Reseau* res);
+
+int countPtsInRes(Reseau* res);
+
+Cell_point* ptsListAdd(Cell_point* liste, Point* pts);
+
+Cell_point* ptsListUnion(Cell_point* aList, Cell_point* bList);
+
+int ptsListIn(Cell_point* list, Cell_point* elem);
+
+
+
+
 
 #endif

@@ -2,6 +2,12 @@
 /*
 debug.h
 Definit des macros de déboguage pratiques.
+
+EVITER D'UTILISER CE FICHIER
+Preferer gdb (GNU debugger) :
+- compiler avec l'option -g 1 ou 2 ou 3
+- lancer l'executable avec gdb ./exec
+
 */
 #ifndef DEBUG_H
 #define DEBUG_H

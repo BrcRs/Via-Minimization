@@ -1,5 +1,5 @@
 CC = gcc
-COMPILE = $(CC) -g3 -c
+COMPILE = $(CC) -fPIC -g3 -c
 LINK = $(CC) -o $@
 CFLAGS = -Wall
 
@@ -16,19 +16,19 @@ OBJSA = PartieA/src/Netlist.o PartieA/src/tools.o PartieA/src/intersec.o
 
 all: makeA check $(PROGRAMS)
 	-mv *.o $(BINDIR)
-	
-	
+
+
 makeA:
 	cd PartieA ; make
-	
+
 check :
 	-cd $(BINDIR) ; mv -t .. *.o
-	
+
 # Compilation
 
 %.o : $(SRCDIR)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
-	
+
 
 # Edition des liens
 testGraph: testGraph.o generatePostScript.o graph.o $(OBJSA)
@@ -39,8 +39,7 @@ testMini7: testMini7.o graph.o viaMinimization.o $(OBJSA)
 clean:
 	cd PartieA ; make clean
 	-rm -f *.o $(PROGRAMS)
+	-cd src ; rm -f *.o
 	-cd $(BINDIR) ; rm -f *.o
-	
+
 .PHONY: clean all check makeA
-
-

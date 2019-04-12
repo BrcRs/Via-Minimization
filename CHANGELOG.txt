@@ -305,10 +305,44 @@ Ajustement des makefiles
 
 Bugs connus :
 	graph.c
-	└~~~~>	| Des bugs doivent être résolus (chercher BUG dans 
+	└────>	| Des bugs doivent être résolus (chercher BUG dans 
 		| le fichier)
 
-	intersec.c	<~~~| un bug a ete detecte dans sauvegarde_intersection.
-			    | Le programme tourne en boucle.
+	intersec.c
+	└────>	| un bug a ete detecte dans sauvegarde_intersection.
+		| Le programme tourne en boucle.
 
 ------{ ^ 10/04/2019 18:00 PPTI-14-301-15 ^ }-----[ Exercice7 ]-----------------
+
+Il faut corriger et finir la fonction de creation de graph a partir de fichier 
+graph.c
+
+Bugs connus :
+	graph.c
+	└──────>│ Mauvaise creation de graph
+		└─[ CORRIGE ]
+
+	intersec.c
+	└──────>│ un bug a ete detecte dans sauvegarde_intersection.
+		│ Le programme tourne en boucle.
+		└─[ NOK ]
+
+------{ ^ 11/04/2019 14:00 PPTI-14-503-11 ^ }-----[ Exercice7 ]-----------------
+
+La creation de graph est OK, a part certains points de segment affiches en noir
+au lieu de vert.
+
+
+Bugs connus :
+
+	intersec.c
+	└──────>│ 1] un bug a ete detecte dans sauvegarde_intersection.
+		│ Le programme tourne en boucle, parfois.
+		└─[ NOK ]
+		│
+		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne 
+		│ malgre le fait qu'il verifie que la ligne n'est pas presente 
+		│ deja dans le fichier.
+		└─[ NOK ]
+
+------{ ^ 12/04/2019 16:00 PPTI-14-403-02 ^ }-----[ Exercice7 ]-----------------

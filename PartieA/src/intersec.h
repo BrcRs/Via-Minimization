@@ -13,7 +13,11 @@ int intersection(Netlist* N, Segment* s1, Segment* s2);
 
 int nb_segment(Netlist* netlist);
 
+int nb_Points(Netlist* netlist);
+
 Segment** segTab(Netlist* netlist);
+
+Point** ptsTab(Netlist* netlist);
 
 int sauvegarde_intersection(Netlist* netlist);
 

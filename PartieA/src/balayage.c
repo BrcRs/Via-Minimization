@@ -110,6 +110,7 @@ Extremite* new_Extremite(Netlist* netlist, Segment* seg, int GouVouD)
       newExtremite->NumPt = -1;
     }
   }
+  return newExtremite;
 }
 /* < int y > sera egal a l'indice du segment dans l'echeancier, apres avoir ete
 divise par 3 */
@@ -365,4 +366,5 @@ int balayage(Netlist* netlist)
     }
   }
   // fin
+  return 0;
 }

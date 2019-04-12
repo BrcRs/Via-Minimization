@@ -46,6 +46,23 @@ int nb_segment(Netlist* netlist)
   return nb;
 }
 
+int nb_Points(Netlist* netlist)
+{
+  int nb = 0;
+  int r;
+
+  /* Boucle sur les reseaux */
+  for ( r = 0; r < netlist->NbRes; r++)
+  {
+    // Compter le nombre de points total dans le reseau
+    nb += countPtsInRes(netlist->T_Res[r]);
+
+  }
+
+  return nb;
+}
+
+
 Segment** segTab(Netlist* netlist)
 {
   int i, j;
@@ -76,6 +93,38 @@ Segment** segTab(Netlist* netlist)
 
   return segTab;
 }
+
+Point** ptsTab(Netlist* netlist)
+{
+  int i, j;
+  Cell_point* listUnion = NULL;
+
+  Cell_point* curr = NULL;
+
+  int taille = nb_Points(netlist);
+
+  Point** ptsTab = (Point**)calloc(taille, sizeof(Point*));
+
+  /* Boucle sur les reseaux */
+  for ( i = 0; i < netlist->NbRes; i++)
+  {
+    // Boucle sur les points du reseau
+    for ( j = 0 ; j < netlist->T_Res[i]->NbPt ; j++)
+    {
+      listUnion = ptsListUnion(listUnion, ptsListAdd(NULL, netlist->T_Res[i]->T_Pt[j]));
+    }
+  }
+
+  curr = listUnion;
+  for ( i = 0 ; i < taille ; i++)
+  {
+    ptsTab[i] = curr->pts;
+    curr = curr->suiv;
+  }
+
+  return ptsTab;
+}
+
 
 int intersec_naif(Netlist* netlist, Segment** tab, int taille)
 {
@@ -141,6 +190,7 @@ int afficheSegTab(Segment** segtab, int taille, int nb_colonnes)
 */
 int sauvegarde_intersection(Netlist* netlist)
 {
+  // Recuperation de nombre de segments de netlist
   int taille_mesSegments = nb_segment(netlist);LINE;
 
   int i;

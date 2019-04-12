@@ -1,95 +1,154 @@
 #include "graph.h"
 
-Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename) // passer le fichier pour consigne BUG
+Graphe* creerGrapheFromNetlist(char* netlistFile, char* intfilename)
 {
-  // charger netlist BUG
-  Segment* s;LINE;
+  SHOW(Entree,);
+  // charger netlist
+  Netlist* netlist = saveNetlistFromFile(netlistFile);
 
-  Point* pa, *pb;LINE;
+  Segment* s;
+
+  Point* pa, *pb;
   // determiner le nombre de segments n' dans netlist
-  int nbSeg = nb_segment( netlist);LINE;
+  int nbSeg = nb_segment( netlist);
 
-  // En deduire le nombre de sommet n ( = n' * 3)
-  int n = nbSeg * 3;LINE; // NON, 1 point 1 sommet BUG
+  // Determiner le nombre de points nbPts
+  int nbPts = nb_Points(netlist);
+  // En deduire le nombre de sommets n ( = n' + nbPts)
+
+  int n = nbSeg + nbPts;
 
   // Declarer un graphe G
-  Graphe* G;LINE;
+  Graphe* G;
 
   // Creer un Graphe de taille n
-  creerGraphe(&G, n);LINE;
+  creerGraphe(&G, n);
 
   // Obtenir le tableau des segments de netlist
-  Segment** segtab = segTab(netlist);LINE;
+  Segment** segtab = segTab(netlist);
 
-  DEBUG(afficheSegTab(segtab, nbSeg, 3);LINE;)
+  // Obtenir le tableau des points de netlistFile
+  //Point** ptstab = ptsTab(netlist); non necessaire
 
+  DEBUG(afficheSegTab(segtab, nbSeg, 3);)
 
+  // On cree une liste de Points vus
+  Cell_point* liste = NULL;
   // Pour chaque segment s de netlist :
-  int i;LINE;
+  int i, j = nbSeg;
+  int ja, jb;
+  int k;
   for (i = 0 ; i < nbSeg ; i ++)
   {
-    SHOWINT(s == NULL);
-    s = segtab[i];LINE;
+    //SHOWINT(s == NULL);
+    s = segtab[i];
     /* Points du segment s */
     // pa, pb
 
     // Acquisition des points pa, pb
 
-    pa = netlist->T_Res[s->NumRes]->T_Pt[s->p1];LINE;
-    pb = netlist->T_Res[s->NumRes]->T_Pt[s->p2];LINE;
+    pa = netlist->T_Res[s->NumRes]->T_Pt[s->p1];
+    pb = netlist->T_Res[s->NumRes]->T_Pt[s->p2];
 
-
-    // Ajouter un sommet pour le point 1 au graphe G
-    majCoordonnees(G, (i * 3), pa->x, pa->y);LINE;
-    majContenu(G, (i * 3), NULL, pa);LINE;
+    // Si le point 1 n'est pas vu :
+    if (!ptsListIn(liste, ptsListAdd(NULL, pa)))
+    {
+      ja = j;
+      // Ajouter un sommet pour le point 1 au graphe G en j
+      majCoordonnees(G, ja, pa->x, pa->y);
+      majContenu(G, ja, NULL, pa);
+      // Incrementer j
+      j++;
+      // On ajoute pa aux vus
+      liste = ptsListAdd(liste, pa);
+    }
+    else
+    {
+      /* Sinon, on cherche la coordonnee du point pour attribuer ja */
+      for (k = j ; k >= nbSeg ; k--)
+      {
+        if (G->tabS[k]->pt == pa)
+        {
+          ja = k;
+          break;
+        }
+      }
+    }
 
     // Ajouter un sommet pour le segment s au graphe G
-    majCoordonnees(G, (i * 3 + 1), (pa->x + pb->x) / 2, (pa->y + pb->y) / 2);LINE;
-    majContenu(G, (i * 3 + 1), s, NULL);LINE;
+    majCoordonnees(G, i, (pa->x + pb->x) / 2, (pa->y + pb->y) / 2);
+    majContenu(G, i, s, NULL);
 
-    // Ajouter un sommet pour le point 2 au graphe G
-    majCoordonnees(G, (i * 3 + 2), pb->x, pb->y);LINE;
-    majContenu(G, (i * 3 + 2), NULL, pb);LINE;
+    // Si le point 2 n'est pas vu :
+    if (!ptsListIn(liste, ptsListAdd(NULL, pb)))
+    {
+      jb = j;
+      // Ajouter un sommet pour le point 2 au graphe G
+      majCoordonnees(G, jb, pb->x, pb->y);
+      majContenu(G, jb, NULL, pb);
+      // Incrementer j
+      j++;
+      // On ajoute pb aux vus
+      liste = ptsListAdd(liste, pb);
+    }
+    else
+    {
+      /* Sinon, on cherche la coordonnee du point pour attribuer jb */
+      for (k = j ; k >= nbSeg ; k--)
+      {
+        SHOW(Bonjour,);
+        if (G->tabS[k]->pt == pb)
+        {
+          jb = k;
+          break;
+        }
+      }
+
+
+    }
 
 
     // Ajouter une arete du point 1 au segment s
-    ajoutArete(G, (i * 3), (i * 3 + 1), 1.0);LINE;
+    ajoutArete(G, ja, i, 1.0);
 
     // Ajouter une arete du point 2 au segment s
-    ajoutArete(G, (i * 3 + 2), (i * 3 + 1), 1.0);LINE;
+    ajoutArete(G, jb, i, 1.0);
 
   }// Fin Pour
 
-  FILE* f = fopen(filename, "r");LINE;
+
+
+
+  FILE* f = fopen(intfilename, "r");
 
   if (f == NULL)
   {
-    fprintf(stderr, "\n[%s : %s, ligne %d] Erreur : Impossible d'ouvrir le fichier %s\n",__FILE__, __PRETTY_FUNCTION__,__LINE__, filename);LINE;
-    fclose(f);LINE;
-    exit(__LINE__);LINE;
+    fprintf(stderr, "\n[%s : %s, ligne %d] Erreur : Impossible d'ouvrir le fichier %s\n",__FILE__, __PRETTY_FUNCTION__,__LINE__, intfilename);
+    fclose(f);
+    exit(__LINE__);
   }
 
-  int r1, r2, p11, p12, p21, p22;LINE;
-  int i1, i2;LINE;
+  int r1, r2, p11, p12, p21, p22;
+  int i1, i2;
   long int currPos = ftell(f);
-  SHOWINT((int) currPos);
+  //SHOWINT((int) currPos);
   fseek(f, 0, SEEK_END);
   long int endPos = ftell(f);
-  SHOWINT((int)endPos);
+  //SHOWINT((int)endPos);
   fseek(f, currPos, SEEK_SET);
-  DEBUG(int ite = 0;)
+  //DEBUG(int ite = 0;)
   // (Pour chaque ligne de filename :)
   // Tant qu'on est pas a la fin du fichier :
   while (ftell(f) != endPos)
   {
-    SHOWINT((int) endPos);
-    SHOWINT((int) ftell(f));
+    //SHOWINT((int) endPos);
+    //SHOWINT((int) ftell(f));
 
 
-    SHOWINT(ftell(f) != endPos);
+    //SHOWINT(ftell(f) != endPos);
 
-    SHOWINT(ite++);
-    SHOWINT((int)ftell(f));
+    //SHOWINT(ite++);
+    //SHOWINT((int)ftell(f));
     r1 = -1 ;
     r2 = -1 ;
     p11 = -1 ;
@@ -99,7 +158,7 @@ Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename) // passer le fi
     i1 = -1;
     i2 = -1;
     // Lire les informations relatives aux segments s'intersectant
-    fscanf(f, "r%d p%d p%d r%d p%d p%d\n", &r1, &p11, &p12, &r2, &p21, &p22);LINE;
+    fscanf(f, "r%d p%d p%d r%d p%d p%d\n", &r1, &p11, &p12, &r2, &p21, &p22);
     // Chercher l'indice i1 et l'indice i2 des segments dans segtab
     // Pour chaque segment de segtab
     for (i = 0 ; i < nbSeg ; i++)
@@ -107,71 +166,67 @@ Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename) // passer le fi
       // Si i1 >= 0 et que i2 >= 0 aussi
       if (i1 >= 0 && i2 >= 0)
       {
-        LINE;
+
         // sortir de la boucle
-        break;LINE;
+        break;
       }
-      s = segtab[i];LINE;
+      s = segtab[i];
       /* Si les informations du segment 1 sont les memes que celles du segment
       de segtab */
-      SHOWINT(segtab[i] == NULL);LINE;
-      SHOWINT(segtab[i]->p1);LINE;
-      SHOWINT(i1);LINE;
-      SHOWINT(p11);LINE;
-      SHOWINT(p12);LINE;
+
       if (i1 == -1 && r1 == segtab[i]->NumRes && p11 == segtab[i]->p1 && p12 == segtab[i]->p2)
       {
-        LINE;
+
         // i1 = i
-        i1 = i;LINE;
+        i1 = i;
       }
       // Si le segment est le meme que le segment 2
       if (i2 == -1 && r2 == segtab[i]->NumRes && p21 == segtab[i]->p1 && p22 == segtab[i]->p2)
       {
         // i2 = i
-        i2 = i;LINE;
+        i2 = i;
       }
 
 
     }
     // Ajouter l'arete de conflit dans le graphe
-    ajoutArete(G, (i1 * 3 + 1), (i2 * 3 + 1), 2.0);LINE;
+    ajoutArete(G, i1, i2, 2.0);
 
 
   }// Fin Tant que
 
-  fclose(f);LINE;
+  fclose(f);
 
   return G;
 }
 
 void creerGraphe(Graphe** G, int n)
 {
-  LINE;
+
   (*G) = (Graphe*)malloc(sizeof(Graphe));
-  (*G)->nbS = n;LINE;
-  (*G)->nbA = 0;LINE;
-  (*G)->tabS = (Sommet**)malloc(sizeof(Sommet*) * n);LINE;
-  int i;LINE;
+  (*G)->nbS = n;
+  (*G)->nbA = 0;
+  (*G)->tabS = (Sommet**)malloc(sizeof(Sommet*) * n);
+  int i;
   for (i = 0 ; i < (*G)->nbS ; i++)
   {
-    (*G)->tabS[i] = (Sommet*)malloc(sizeof(Sommet));LINE;
-    (*G)->tabS[i]->numS = i;LINE;
-    (*G)->tabS[i]->nbA = 0;LINE;
-    (*G)->tabS[i]->LA = NULL;LINE;
-    (*G)->tabS[i]->seg = NULL;LINE;
-    (*G)->tabS[i]->pt = NULL;LINE;
+    (*G)->tabS[i] = (Sommet*)malloc(sizeof(Sommet));
+    (*G)->tabS[i]->numS = i;
+    (*G)->tabS[i]->nbA = 0;
+    (*G)->tabS[i]->LA = NULL;
+    (*G)->tabS[i]->seg = NULL;
+    (*G)->tabS[i]->pt = NULL;
   }
 }
 
 void majCoordonnees(Graphe *G, int s, float x, float y)
 {
-  LINE;
-  SHOWINT(G == NULL);LINE;
-  SHOWINT(G->tabS == NULL);LINE;
-  SHOWINT(G->tabS[s] == NULL);LINE;
-  G->tabS[s]->x = x;LINE;
-  G->tabS[s]->y = y;LINE;
+
+  //SHOWINT(G == NULL);
+  //SHOWINT(G->tabS == NULL);
+  //SHOWINT(G->tabS[s] == NULL);
+  G->tabS[s]->x = x;
+  G->tabS[s]->y = y;
 }
 
 void majContenu(Graphe *G, int s, Segment* seg, Point* pt)
@@ -274,5 +329,22 @@ void display_Cell_sommet(Cell_sommet* list)
   {
     printf("%d ", curr->som->numS);
     curr = curr->suiv;
+  }
+}
+
+void display_Sommets(Graphe* G)
+{
+  int i;
+  for (i = 0 ; i < G->nbS ; i++)
+  {
+    printf("\n%d | ", G->tabS[i]->numS);
+    if (G->tabS[i]->pt != NULL)
+    {
+      printf("\nC'est un point");
+    }
+    if (G->tabS[i]->seg != NULL)
+    {
+      printf("\nC'est un segment");
+    }
   }
 }

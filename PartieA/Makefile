@@ -1,5 +1,5 @@
 CC = gcc
-COMPILE = $(CC) -c
+COMPILE = $(CC) -fPIC -c
 LINK = $(CC) -o $@
 CFLAGS = -Wall
 
@@ -31,7 +31,7 @@ testbalayage: testbalayage.o intersec.o balayage.o Netlist.o hachage.o tools.o
 
 testintersec: testintersec.o Netlist.o intersec.o tools.o
 	-$(LINK) testintersec.o Netlist.o intersec.o tools.o
-	
+
 testsegListUnion: testsegListUnion.o Netlist.o tools.o
 	-$(LINK) testsegListUnion.o Netlist.o tools.o
 
@@ -47,5 +47,3 @@ clean:
 	cd $(BINDIR); 	rm -f *.o
 
 .PHONY: clean all
-
-

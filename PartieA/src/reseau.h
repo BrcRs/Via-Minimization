@@ -43,6 +43,12 @@ typedef struct point{
 
 } Point;
 
+typedef struct cell_point{
+  DEBUG( char label[100];)
+  Point* pts;
+  struct cell_point *suiv;
+} Cell_point;
+
 
 typedef struct reseau{
 

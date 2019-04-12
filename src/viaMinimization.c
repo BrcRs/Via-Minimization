@@ -96,32 +96,42 @@ int detect_si_cycle(Graphe* G)
 
 Cell_sommet* detecte_cycle_impair(Graphe *G, int* S)
 {
+  // Tableau de marquage
   int* M = (int*)malloc(G->nbS * sizeof(int));
-  int* T = (int*)malloc(G->nbS * sizeof(int)); // tableau de descendance
+  // tableau de descendance
+  int* T = (int*)malloc(G->nbS * sizeof(int));
 
   int i, r = 0;
   //int detect = 0;
 
   Cell_sommet* liste = NULL;
 
-
+  // Pour tous les sommets i de G
   for (i = 0 ; i < G->nbS ; i++)
   {
+    // Si S[i] est egal a 0, mettre M[i] a 0, sinon 1
     M[i] = S[i] == 0 ? 0 : -1;
+    // On initialise T[i] a -1
     T[i] = -1;
   }
-
+  // Tant que r est inferieur au nombre de sommets et que la liste du cycle
+  // est (pas?) nulle :
   while ((r < G->nbS) && (liste != NULL))
   {
+    // Chercher un cycle impliquant r
     liste = detect_si_cycle_descendant_de_r_rec(G, r, M, T);
 
+    /* -= Recherche du prochain r non-ferme =- */
+    // Tant que r est inferieur au nombre de sommet et que le marquage de r est
+    // different de 0 :
     while ((r < G->nbS) && (M[r] != 0))
     {
+      // Incrementer r
       r++;
     }
 
   }
-
+  // On retourne le cycle trouve
   return liste;
 
 }

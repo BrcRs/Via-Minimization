@@ -39,7 +39,7 @@ typedef struct cell_sommet {
 
 typedef Element_listeA* ListeA;
 
-Graphe* creerGrapheFromNetlist(Netlist* netlist, char* filename);
+Graphe* creerGrapheFromNetlist(char* netlistFile, char* intfilename);
 void creerGraphe(Graphe** G, int n);
 void majCoordonnees(Graphe *G, int s, float x, float y);
 void majContenu(Graphe *G, int s, Segment* seg, Point* pt);
@@ -50,6 +50,8 @@ int findMaxX(Graphe* G);
 int findMaxY(Graphe* G);
 Cell_sommet* new_Cell_sommet(Sommet* sommet, Cell_sommet* suiv);
 void display_Cell_sommet(Cell_sommet* list);
+void display_Sommets(Graphe* G);
+
 
 
 

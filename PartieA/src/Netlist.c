@@ -33,7 +33,7 @@ void segListDisplay(Cell_segment* liste, int mode)
 )
 /**/
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Renvoie la liste resultante de l'ajout de < Segment* seg > au
+* Renvoie la liste resultante de l'ajout dte < Segment* seg > au
 * < Cell_segment* liste >.
 */
 Cell_segment* segListAdd(Cell_segment* liste, Segment* seg)
@@ -42,6 +42,18 @@ Cell_segment* segListAdd(Cell_segment* liste, Segment* seg)
   newCellSeg->seg = seg;
   newCellSeg->suiv = liste;
   return newCellSeg;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Renvoie la liste resultante de l'ajout de < Point* pts > au
+* < Cell_point* liste >.
+*/
+Cell_point* ptsListAdd(Cell_point* liste, Point* pts)
+{
+  Cell_point* newCellPts = (Cell_point*)malloc(sizeof(Cell_point));
+  newCellPts->pts = pts;
+  newCellPts->suiv = liste;
+  return newCellPts;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,6 +105,22 @@ int segListLength(Cell_segment* liste)
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Renvoie la longueur de < Cell_point* liste >
+*/
+int ptsListLength(Cell_point* liste)
+{
+  int cpt = 0;
+  Cell_point* curr = liste;
+  while (curr != NULL)
+  {
+    cpt++;
+    curr = curr->suiv;
+  }
+  return cpt;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Retourne une copie de < Cell_segment* list >
 */
 Cell_segment* segListCpy(Cell_segment* list)
@@ -118,6 +146,33 @@ Cell_segment* segListCpy(Cell_segment* list)
   return resList;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Retourne une copie de < Cell_point* list >
+*/
+Cell_point* ptsListCpy(Cell_point* list)
+{
+  if (list == NULL)
+  {
+    return NULL;
+  }
+
+  Cell_point* resList = (Cell_point*)malloc(sizeof(Cell_point));
+  Cell_point* resCurr = resList;
+  Cell_point* tmpCurr = list;
+  while (tmpCurr->suiv != NULL)
+  {
+    resCurr->pts = tmpCurr->pts;
+    resCurr->suiv = (Cell_point*)malloc(sizeof(Cell_point));
+    resCurr = resCurr->suiv;
+    tmpCurr = tmpCurr->suiv;
+  }
+  resCurr->pts = tmpCurr->pts;
+  resCurr->suiv = NULL;
+
+  return resList;
+}
+
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Retourne 1 si < Segment* elem->seg > est present dans < Cell_segment* list >
@@ -130,6 +185,25 @@ int segListIn(Cell_segment* list, Cell_segment* elem)
   {
 
     if (curr->seg == elem->seg)
+    {
+      return 1;
+    }
+    curr = curr->suiv;
+  }
+  return 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Retourne 1 si < Point* elem->pts > est present dans < Cell_point* list >
+* Retourne 0 sinon
+*/
+int ptsListIn(Cell_point* list, Cell_point* elem)
+{
+  Cell_point* curr = list;
+  while (curr != NULL)
+  {
+
+    if (curr->pts == elem->pts)
     {
       return 1;
     }
@@ -159,6 +233,29 @@ Cell_segment* segListCpy_without(Cell_segment* list, Cell_segment* blackList)
   return resList;
 
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*  Retourne une copie de < Cell_point* list > en ignorant les elements dont
+*  le membre < Point* seg > est deja contenu par l'un des elements presents dans
+*  < Cell_point* blackList >
+*/
+Cell_point* ptsListCpy_without(Cell_point* list, Cell_point* blackList)
+{
+  Cell_point* resList = NULL;
+  Cell_point* curr = list;
+  while (curr != NULL)
+  {
+    if (!ptsListIn(blackList, curr))
+    {
+      resList = ptsListAdd(resList, curr->pts);
+    }
+    curr = curr->suiv;
+  }
+
+  return resList;
+
+}
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *  Retourne une nouvelle liste de type < Cell_segment* > qui est la
@@ -206,6 +303,34 @@ Cell_segment* segListUnion(Cell_segment* aList, Cell_segment* bList)
   curr->suiv = resListB;
   return resList;
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*  Concatène la liste < aList > avec < bList > mais sans ajouter d element
+*  en double.
+*  Pour optimiser la complexite, la liste < aList > devrait etre plus courte
+*  que < bList >.
+*/
+Cell_point* ptsListUnion(Cell_point* aList, Cell_point* bList)
+{
+  Cell_point* resListA = ptsListCpy(aList);
+  Cell_point* resListB = ptsListCpy_without(bList, resListA);
+  Cell_point* curr = resListA;
+  Cell_point* resList = curr;
+
+  if (curr == NULL)
+  {
+    return resListB;
+  }
+
+  while (curr->suiv != NULL)
+  {
+    curr = curr->suiv;
+  }
+
+  curr->suiv = resListB;
+  return resList;
+}
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Alloue en memoire et initialise un [Netlist*].
@@ -307,6 +432,23 @@ int countSegInRes(Reseau* res)
   }
   return segListLength(liste);
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Retourne le nombre de points contenus dans < Reseau* res >
+*/
+int countPtsInRes(Reseau* res)
+{
+
+  Cell_point* liste = NULL;
+  int i;
+  for ( i = 0; i < res->NbPt; i++)
+  {
+    liste = ptsListUnion(liste, ptsListAdd(NULL, res->T_Pt[i]));
+  }
+  return ptsListLength(liste);
+}
+
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Initialise un < Netlist* > a partir d un fichier de nom < filename >
 */
