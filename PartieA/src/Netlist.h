@@ -44,7 +44,7 @@ Cell_segment* segListCpy(Cell_segment* list);
 Cell_segment* segListCpy_without(Cell_segment* list, Cell_segment* blackList);
 
 int segListIn(Cell_segment* list, Cell_segment* elem);
-void segListDisplay(Cell_segment* liste, int mode);
+DEBUG(void segListDisplay(Cell_segment* liste, int mode);)
 
 int findMaxXY(Netlist* netlist, int* x, int* y);
 

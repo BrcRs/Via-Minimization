@@ -194,11 +194,12 @@ int sauvegarde_intersection(Netlist* netlist)
   int taille_mesSegments = nb_segment(netlist);LINE;
 
   int i;
-
+  // Recuperation d'un tableau des segments de netlist
   Segment** mesSegments = segTab(netlist);LINE;
 
   Cell_segment* curr = NULL;LINE;
 
+  // Remplissage des listes d'intersection des segments
   intersec_naif(netlist, mesSegments, taille_mesSegments);LINE;
 
   char* filename = strcat(netlist->label, ".int");
@@ -219,25 +220,42 @@ int sauvegarde_intersection(Netlist* netlist)
   /* Parcours des segments */
   for ( i = 0 ; i < taille_mesSegments ; i++)
   {
+    DEBUG(printf("\n╔═════════════════╗");
+          printf("\n║ Nouveau segment ║");
+          printf("\n║ N. %4d         ║", i);
+          printf("\n╚═════════════════╝");)
     /* Parcours des intersections */
     curr = mesSegments[i]->Lintersec;
+    // Pour chaque intersection
     while (curr != NULL)
     {
-      sprintf(buffer, "r%d p%d p%d r%d p%d p%d\n", mesSegments[i]->NumRes, mesSegments[i]->p1, mesSegments[i]->p2, curr->seg->NumRes, curr->seg->p1, curr->seg->p2);
+      // Ecrire la ligne de l'intersection dans un buffer
+      sprintf(buffer, "r%d p%d p%d r%d p%d p%d", mesSegments[i]->NumRes, mesSegments[i]->p1, mesSegments[i]->p2, curr->seg->NumRes, curr->seg->p1, curr->seg->p2);
 
       curr_pos = ftell(f);
       fclose(f);
+      // Ecrire la ligne de l'intersection mais inversee dans un buffer2
+      sprintf(buffer2, "r%d p%d p%d r%d p%d p%d", curr->seg->NumRes, curr->seg->p1, curr->seg->p2, mesSegments[i]->NumRes, mesSegments[i]->p1, mesSegments[i]->p2);
 
-      sprintf(buffer2, "r%d p%d p%d r%d p%d p%d\n", curr->seg->NumRes, curr->seg->p1, curr->seg->p2, mesSegments[i]->NumRes, mesSegments[i]->p1, mesSegments[i]->p2);
+      DEBUG(
+      printf("\n┌───────────────────────┐");
+      printf("\n│ Nouvelle intersection │");
+      printf("\n│ %-21.21s │", buffer);
+      printf("\n└───────────────────────┘");
 
+    )
+      // Si la ligne intersection n'est pas dans le fichier, qu'elle soit
+      // inversee ou pas :
       if (!tools_LineInFile(buffer, filename) && !tools_LineInFile(buffer2, filename))
       {
         f = fopen(filename, "r+");
         fseek(f, curr_pos, SEEK_SET);
+        // Ecrire l'intersection
         fprintf(f, "%s", strcat(buffer, "\n"));
       }
       else
       {
+        // Sinon ne rien faire
         f = fopen(filename, "r+");
         fseek(f, curr_pos, SEEK_SET);
       }

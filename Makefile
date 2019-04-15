@@ -6,13 +6,13 @@ CFLAGS = -Wall
 BINDIR := bin
 SRCDIR := src
 
-PROGRAMS = testGraph testMini7
+PROGRAMS = testGraph testMini7 testMini6
 
 SRCS := src/*.c
 
 OBJS = $(SRCS:.c=.o)
 
-OBJSA = PartieA/src/Netlist.o PartieA/src/tools.o PartieA/src/intersec.o
+OBJSA = PartieA/bin/Netlist.o PartieA/bin/tools.o PartieA/bin/intersec.o
 
 all: makeA check $(PROGRAMS)
 	-mv *.o $(BINDIR)
@@ -34,8 +34,11 @@ check :
 testGraph: testGraph.o generatePostScript.o graph.o $(OBJSA)
 	$(LINK) testGraph.o generatePostScript.o graph.o $(OBJSA)
 
-testMini7: testMini7.o graph.o viaMinimization.o $(OBJSA)
-	$(LINK) testMini7.o viaMinimization.o graph.o $(OBJSA)
+testMini6: testMini6.o graph.o viaMinimization.o generatePostScript.o $(OBJSA)
+	$(LINK) testMini6.o viaMinimization.o graph.o generatePostScript.o $(OBJSA)
+
+testMini7: testMini7.o graph.o viaMinimization.o generatePostScript.o $(OBJSA)
+	$(LINK) testMini7.o viaMinimization.o graph.o generatePostScript.o $(OBJSA)
 clean:
 	cd PartieA ; make clean
 	-rm -f *.o $(PROGRAMS)

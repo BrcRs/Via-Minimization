@@ -1,7 +1,8 @@
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Ce fichier recense toutes les modifications apportees au projet afin de rendre
-la mise a jour de celui-ci plus facile et plus organisee.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ Ce fichier recense toutes les modifications apportees au projet afin de      ║
+║ rendre la mise a jour de celui-ci plus facile et plus organisee.             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
 whatsnew.txt
 SVGwriter.c
 SVGwriter.h
@@ -336,13 +337,81 @@ au lieu de vert.
 Bugs connus :
 
 	intersec.c
-	└──────>│ 1] un bug a ete detecte dans sauvegarde_intersection.
-		│ Le programme tourne en boucle, parfois.
-		└─[ NOK ]
-		│
-		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne 
-		│ malgre le fait qu'il verifie que la ligne n'est pas presente 
-		│ deja dans le fichier.
-		└─[ NOK ]
+	│   ┌──────────────────────────────────────────────────────────────────────┐
+	│   │                                                                      │
+	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
+		│ Le programme tourne en boucle, parfois.                              │
+		│                                                                      │
+		├─[ NOK ]──────────────────────────────────────────────────────────────┤
+		│                                                                      │
+		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
+		│ malgre le fait qu'il verifie que la ligne n'est pas presente         │
+		│ deja dans le fichier.                                                │
+		│                                                                      │
+		└─[ NOK ]──────────────────────────────────────────────────────────────┘
+		
+		
 
 ------{ ^ 12/04/2019 16:00 PPTI-14-403-02 ^ }-----[ Exercice7 ]-----------------
+
+
+La fonction cherche cycle impair semble fonctionner (testMini7.c).
+
+La fonction de recherche de vias semble fonctionner (testMini7.c).
+
+La fonction de recherche de bicoloration semble fonctionner (testMini7.c).
+
+Bugs connus :
+
+	intersec.c
+	│   ┌──────────────────────────────────────────────────────────────────────┐
+	│   │                                                                      │
+	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
+		│ Le programme tourne en boucle, parfois ?                             │
+		│                                                                      │
+		├─[ ??? ]──────────────────────────────────────────────────────────────┤
+		│                                                                      │
+		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
+		│ malgre le fait qu'il verifie que la ligne n'est pas presente         │
+		│ deja dans le fichier .int.                                           │
+		│                                                                      │
+		├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
+		│                                                                      │
+		│ La fonction intersection ne fonctionne pas pour de grandes instances │
+		│                                                                      │
+		└─[ NOK     ]──────────────────────────────────────────────────────────┘
+		
+		
+	(PartieB, generation de graphes)
+	│   ┌──────────────────────────────────────────────────────────────────────┐
+	│   │                                                                      │
+	└───┤ Les graphes generes ne sont pas corrects pour de grandes instances   │
+		│                                                                      │
+		├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
+		│                                                                      │
+		│ Un sommet peut se trouver lui-meme dans sa liste d'adjacence ??      │
+		│                                                                      │
+		└─[ CORRIGE ]──────────────────────────────────────────────────────────┘
+			
+──────{ ^ 13/04/2019 10:00 Ordinateur-Bruce ^ }─────[ Exercice7 ]───────────────
+
+
+Bugs connus :
+
+	intersec.c
+	│   ┌──────────────────────────────────────────────────────────────────────┐
+	│   │                                                                      │
+	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
+		│ Le programme tourne en boucle, parfois ?                             │
+		│                                                                      │
+		├─[ ??? ]──────────────────────────────────────────────────────────────┤
+		│                                                                      │
+		│ La fonction intersec_naif ne fonctionne pas pour de grandes          │
+		│ instances                                                            │
+		│                                                                      │
+		└─[ NOK     ]──────────────────────────────────────────────────────────┘
+		
+			
+──────{ ^ 14/04/2019 9:45 Ordinateur-Bruce ^ }─────[ Exercice7 ]───────────────
+
+

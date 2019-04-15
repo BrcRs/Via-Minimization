@@ -45,5 +45,6 @@ svgtest: svgtest.o svgNetlist.o
 clean:
 	rm -f *.o $(PROGRAMS)
 	cd $(BINDIR); 	rm -f *.o
+	cd $(SRCDIR); rm -f *.o
 
 .PHONY: clean all

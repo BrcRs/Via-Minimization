@@ -14,6 +14,7 @@
 char* tools_basename( char* src);
 
 int tools_LineInFile(char* line, char* filename);
+int tools_countZerosInTab(int * tab, int size);
 
 
 #endif

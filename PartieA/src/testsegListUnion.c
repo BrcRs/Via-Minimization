@@ -40,9 +40,9 @@ int main ()
   listeA = segListAdd(listeA, c);
   printf("\nTaille de la listeA : %d\n", segListLength(listeA));
 
-  segListDisplay(listeA, 1);
+  DEBUG(segListDisplay(listeA, 1);)
   printf("\n");
-  segListDisplay(listeA, 0);
+  DEBUG(segListDisplay(listeA, 0);)
   printf("\n");
 
 
@@ -57,9 +57,9 @@ int main ()
   listeB = segListAdd(listeB, f);
   printf("\nTaille de la listeB : %d\n", segListLength(listeB));
 
-  segListDisplay(listeB, 1);
+  DEBUG(segListDisplay(listeB, 1);)
   printf("\n");
-  segListDisplay(listeB, 0);
+  DEBUG(segListDisplay(listeB, 0);)
   printf("\n");
   Cell_segment* liste;
   //SHOWINT(segListIn(segListAdd(NULL, e), segListAdd(NULL, e)));
@@ -69,9 +69,9 @@ int main ()
 
   printf("\nTaille de la liste : %d\n", segListLength(liste));
 
-  segListDisplay(liste, 1);
+  DEBUG(segListDisplay(liste, 1);)
   printf("\n");
-  segListDisplay(liste, 0);
+  DEBUG(segListDisplay(liste, 0);)
   printf("\n");
 
   listeC = segListCpy_without(liste, listeB);
@@ -79,9 +79,9 @@ int main ()
 
   printf("\nTaille de la listeC : %d\n", segListLength(listeC));
   printf("\n");
-  segListDisplay(listeC, 1);
+  DEBUG(segListDisplay(listeC, 1);)
   printf("\n");
-  segListDisplay(listeC, 0);
+  DEBUG(segListDisplay(listeC, 0);)
   printf("\n");
 
 

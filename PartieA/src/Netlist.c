@@ -527,10 +527,12 @@ Netlist* saveNetlistFromFile(char* filename)
     {
       // Lecture et sauvegarde des deux points d un segment
       fscanf(f, " %d %d\n", tmpInts + PT1, tmpInts + PT2);
+
       // creer le segment
       HIDE(tmpSeg = creerSegment(tmpReseau, tmpInts[PT1], tmpInts[PT2]);)
       DEBUG(
          name[0] = tmpInts[PT1] + '0'; name[1] = tmpInts[PT2] + '0';name[2] = '\0'; tmpSeg = creerSegment(tmpReseau, tmpInts[PT1], tmpInts[PT2], name);
+         LINE;
          printf("\n%s", name);
       )
 

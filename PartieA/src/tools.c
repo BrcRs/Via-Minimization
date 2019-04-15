@@ -71,3 +71,15 @@ int tools_LineInFile(char* line, char* filename)
   fclose(f);
   return 0;
 }
+
+int tools_countZerosInTab(int * tab, int size)
+{
+  int ans = 0;
+  int i;
+  for (i = 0 ; i < size ; i++)
+  {
+    ans += tab[i] == 0 ? 1 : 0;
+  }
+
+  return ans;
+}
