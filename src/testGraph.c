@@ -6,6 +6,7 @@
 
 int main(int nbArgs, char* *args)
 {
+
 	Graphe *G;
 	if (nbArgs == 4)
 	{
@@ -18,6 +19,7 @@ int main(int nbArgs, char* *args)
   }
   else
   {
+		printf("\nAide :\n./testGraph monReseau.net monReseau.int monGraph.ps");
   //Netlist* monNet = saveNetlistFromFile("monReseau.net");LINE;
 
 

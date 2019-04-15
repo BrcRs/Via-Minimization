@@ -3,9 +3,10 @@
 Graphe* creerGrapheFromNetlist(char* netlistFile, char* intfilename)
 {
   SHOW(Entree,);
+  LINE;
   // charger netlist
   Netlist* netlist = saveNetlistFromFile(netlistFile);
-
+  LINE;
   Segment* s;
 
   Point* pa, *pb;
@@ -96,7 +97,6 @@ Graphe* creerGrapheFromNetlist(char* netlistFile, char* intfilename)
       /* Sinon, on cherche la coordonnee du point pour attribuer jb */
       for (k = j ; k >= nbSeg ; k--)
       {
-        SHOW(Bonjour,);
         if (G->tabS[k]->pt == pb)
         {
           jb = k;
@@ -107,10 +107,12 @@ Graphe* creerGrapheFromNetlist(char* netlistFile, char* intfilename)
 
     }
 
-
+    SHOWFUN;
+    DEBUG(printf("\n%d arete %d", ja, i);)
     // Ajouter une arete du point 1 au segment s
     ajoutArete(G, ja, i, 1.0);
 
+    DEBUG(printf("\n%d arete %d", jb, i);)
     // Ajouter une arete du point 2 au segment s
     ajoutArete(G, jb, i, 1.0);
 
@@ -263,7 +265,7 @@ void ajoutArete(Graphe* G, int u, int v, double poids)
   ar->u = v;
   ar->v = u;
   ar->poids = poids;
-  insererArete(&(G->tabS[u]->LA), ar);
+  insererArete(&(G->tabS[v]->LA), ar);
   G->nbA++;
 }
 

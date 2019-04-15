@@ -15,7 +15,7 @@ int main(int nbArgs, char* *args)
 	if (nbArgs != 2)
 	{
 		printf("\n┌──────────────────────────────────┐");
-		printf("\n│ Aide : ./testMini7 monReseau.net │");
+		printf("\n│ Aide : ./testMini6 monReseau.net │");
 		printf("\n└──────────────────────────────────┘");
 		printf("\n└ Affiche la solution du probleme  ┘");
 		printf("\n  de   via   minimization    pour   ");
@@ -43,15 +43,12 @@ int main(int nbArgs, char* *args)
 	tps_cpu = ((double)(tf - ti))/CLOCKS_PER_SEC;
 	printf("\nTemps cpu : %f s", tps_cpu);
 	printf("\nNombre de sommets : %d", G->nbS);
-
-
-
 	printf("\n\nRecherche des vias ...");
 
 	int i;
 	char answer[50];
 	ti = clock();
-	int* S2 = ajout_vias_cycle_impair(G);
+	int* S2 = ajout_vias_HV(G);
 	tf = clock();
 	tps_cpu = ((double)(tf - ti))/CLOCKS_PER_SEC;
 	printf("\nTemps cpu : %f s", tps_cpu);
@@ -60,15 +57,13 @@ int main(int nbArgs, char* *args)
 	printf("\n┌───────────────────────────────────┐");
 	printf("\n│ La solution comptabilise %3d vias │", nbVias);
 	printf("\n└───────────────────────────────────┘");
-
-
-	printf("\nBicolorisation ...");
-	ti = clock();
-
-	S2 = bicolore(G, S2);
-	tf = clock();
-	tps_cpu = ((double)(tf - ti))/CLOCKS_PER_SEC;
-	printf("\nTemps cpu : %f s", tps_cpu);
+	// printf("\nBicolorisation ...");
+	// ti = clock();
+	//
+	// S2 = bicolore(G, S2);
+	// tf = clock();
+	// tps_cpu = ((double)(tf - ti))/CLOCKS_PER_SEC;
+	// printf("\nTemps cpu : %f s", tps_cpu);
 
 
 	printf("\n\nAfficher la solution pour les %d points ?\nRepondez par oui ou non\n\n>>> ", G->nbS);
