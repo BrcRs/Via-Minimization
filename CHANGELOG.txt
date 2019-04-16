@@ -340,15 +340,15 @@ Bugs connus :
 	│   ┌──────────────────────────────────────────────────────────────────────┐
 	│   │                                                                      │
 	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
-		│ Le programme tourne en boucle, parfois.                              │
-		│                                                                      │
-		├─[ NOK ]──────────────────────────────────────────────────────────────┤
-		│                                                                      │
-		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
-		│ malgre le fait qu'il verifie que la ligne n'est pas presente         │
-		│ deja dans le fichier.                                                │
-		│                                                                      │
-		└─[ NOK ]──────────────────────────────────────────────────────────────┘
+	    │ Le programme tourne en boucle, parfois.                              │
+	    │                                                                      │
+	    ├─[ NOK ]──────────────────────────────────────────────────────────────┤
+	    │                                                                      │
+	    │ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
+	    │ malgre le fait qu'il verifie que la ligne n'est pas presente         │
+	    │ deja dans le fichier.                                                │
+	    │                                                                      │
+	    └─[ NOK ]──────────────────────────────────────────────────────────────┘
 		
 		
 
@@ -367,31 +367,31 @@ Bugs connus :
 	│   ┌──────────────────────────────────────────────────────────────────────┐
 	│   │                                                                      │
 	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
-		│ Le programme tourne en boucle, parfois ?                             │
-		│                                                                      │
-		├─[ ??? ]──────────────────────────────────────────────────────────────┤
-		│                                                                      │
-		│ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
-		│ malgre le fait qu'il verifie que la ligne n'est pas presente         │
-		│ deja dans le fichier .int.                                           │
-		│                                                                      │
-		├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
-		│                                                                      │
-		│ La fonction intersection ne fonctionne pas pour de grandes instances │
-		│                                                                      │
-		└─[ NOK     ]──────────────────────────────────────────────────────────┘
+	    │ Le programme tourne en boucle, parfois ?                             │
+	    │                                                                      │
+	    ├─[ ??? ]──────────────────────────────────────────────────────────────┤
+	    │                                                                      │
+	    │ 2] sauvegarde_intersection : il ecrit deux fois la meme ligne        │
+	    │ malgre le fait qu'il verifie que la ligne n'est pas presente         │
+	    │ deja dans le fichier .int.                                           │
+	    │                                                                      │
+	    ├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
+	    │                                                                      │
+	    │ La fonction intersection ne fonctionne pas pour de grandes instances │
+	    │                                                                      │
+	    └─[ NOK     ]──────────────────────────────────────────────────────────┘
 		
 		
 	(PartieB, generation de graphes)
 	│   ┌──────────────────────────────────────────────────────────────────────┐
 	│   │                                                                      │
 	└───┤ Les graphes generes ne sont pas corrects pour de grandes instances   │
-		│                                                                      │
-		├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
-		│                                                                      │
-		│ Un sommet peut se trouver lui-meme dans sa liste d'adjacence ??      │
-		│                                                                      │
-		└─[ CORRIGE ]──────────────────────────────────────────────────────────┘
+	    │                                                                      │
+	    ├─[ CORRIGE ]──────────────────────────────────────────────────────────┤
+	    │                                                                      │
+	    │ Un sommet peut se trouver lui-meme dans sa liste d'adjacence ??      │
+	    │                                                                      │
+	    └─[ CORRIGE ]──────────────────────────────────────────────────────────┘
 			
 ──────{ ^ 13/04/2019 10:00 Ordinateur-Bruce ^ }─────[ Exercice7 ]───────────────
 
@@ -402,14 +402,14 @@ Bugs connus :
 	│   ┌──────────────────────────────────────────────────────────────────────┐
 	│   │                                                                      │
 	└───┤ 1] un bug a ete detecte dans sauvegarde_intersection.                │
-		│ Le programme tourne en boucle, parfois ?                             │
-		│                                                                      │
-		├─[ ??? ]──────────────────────────────────────────────────────────────┤
-		│                                                                      │
-		│ La fonction intersec_naif ne fonctionne pas pour de grandes          │
-		│ instances                                                            │
-		│                                                                      │
-		└─[ NOK     ]──────────────────────────────────────────────────────────┘
+	    │ Le programme tourne en boucle, parfois ?                             │
+	    │                                                                      │
+	    ├─[ ??? ]──────────────────────────────────────────────────────────────┤
+	    │                                                                      │
+	    │ La fonction balayage ne fonctionne pas pour de grandes               │
+	    │ instances                                                            │
+	    │                                                                      │
+	    └─[ NOK     ]──────────────────────────────────────────────────────────┘
 		
 			
 ──────{ ^ 14/04/2019 9:45 Ordinateur-Bruce ^ }─────[ Exercice7 ]───────────────

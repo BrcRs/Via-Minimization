@@ -24,7 +24,7 @@ int * analyse_segment_HorizonleVerticale(graphe * g, int racine, int * v) {
   int tableauS[g->nbS];
   int i;
   // ... c'est quoi seg ??
-  graphe * courant = g->tabS->seg->Lintersec;
+  Cell_segment * courant = g->tabS->seg->Lintersec;
   // Parcours des sommets
   for (i = 0; i < g->nbS; i++) {
 

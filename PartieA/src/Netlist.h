@@ -3,7 +3,7 @@
 #include "reseau.h"
 
 typedef struct netlist{
-  char label[100];
+  char* label;
   int NbRes;
   /* Nombre de reseaux */
 

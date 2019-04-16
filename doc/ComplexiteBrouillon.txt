@@ -1,0 +1,87 @@
+Complexite de detect_si_cycle_descendant_de_r_rec(n : nombre de sommets)
+
+(boucle while sur les elements d'une liste d'adjacence de taille nLA)
+nLA *
+	(appel recursif a detect_si_cycle_descendant_de_r_rec)
+	Cdetect_si_cycle_descendant_de_r_rec(?)
+
+Il y a un parcours sur les sommets du graphe. Un sommet n'est visite qu'une fois.
+En effet, si le sommet est marque a un entier different de -1, et qu'il est visite,
+alors il est soit marque a 0 soit a 1 ou 2. Si il est marque a 0, 
+
+
+Cell_sommet* detect_si_cycle_descendant_de_r_rec(Graphe *G, int r, int* M, int* T, int* S)
+{
+
+
+
+  // Pour toutes les aretes de la liste d'adjacence du sommet r, et tant qu'un 
+cycle n'a pas ete trouve :
+  
+    // v est le sommet adjacent
+
+
+    // Soit :
+  
+      // Le sommet v est marque a 0 (i.e. sommet-point-via)
+
+      	// La precedence de v est marque a r
+      	// r devient le precedent de v
+ 
+      // Le sommet v est marque a -1 (i.e. sommet non-visite)
+
+      	// La precedence de v est marque a r
+      	// r devient le precedent de v
+
+     		// Si r est marque a 1 ou 2
+
+        		// v est marque a 1 si r l'est a 2 et
+        		// 2 si r l'est a 1
+
+        		// On cherche un cycle avec v
+        liste = detect_si_cycle_descendant_de_r_rec(G, v, M, T, S);
+
+        	// r est marque a autre chose
+
+
+
+      // Le sommet v est marque a 1 ou 2 (face 1 ou 2)
+
+
+        // On a detecte un cycle impair : stop
+        // Creation de la liste de sommets.
+        // Deja fait.
+        // Remplissage de la liste de sommets
+
+        // r est le sommet courant, T[r] son predecesseur
+
+        /* Tant que la précédence n'est pas v (boucle sur les précédences) */
+
+          // On ajoute le sommet a la liste.
+
+Cas de figure 1 :
+	Le tableau de marquage M est a -1 partout.
+	On prend un sommet r quelconque, d'indice 0 dans le tableau par exemple,
+	mais marque a 1.
+	On visite tous ses voisins
+	Cas de figure 1.1 : Pas de voisins.
+		Impossible.
+	Cas de figure 1.2 : au moins 1 voisin
+		Le voisin est marque a -1
+		On marque ce voisin a 2.
+
+Il suffit de montrer qu'on ne visite un sommet qu'une fois. Il n'y a pas d'appel
+recursif sur des sommets deja visites.
+
+detect_si_cycle_descendant_de_r_rec(n : nombre de sommets) est en O(n)
+
+-> Cell_sommet* detecte_cycle_impair(Graphe *G, int* S)
+On appelle detect_si_cycle_descendant_de_r_rec sur chaque sommet non visite.
+Au final, un sommet non-visite n'est pas visite une seconde fois. On a donc une 
+complexite de O(n) pour detect_si_cycle_impair.
+
+-> ajout_vias_cycle_impair
+Initialise le tableau solution S a -1.
+
+
+

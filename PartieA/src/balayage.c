@@ -313,8 +313,12 @@ int balayage(Netlist* netlist)
     while (r != NULL)
     {
       LINE;
+      SHOWINT(r == NULL);
+
+      LINE;
+      SHOWINT(r->extr == 0); // Segfault
       // si r est extrémité gauche d’un segment horizontal h alors
-      if ( r->extr->GouVouD == 0 )
+      if ( r->extr->GouVouD == 0 ) // Segfault
       {
         LINE;
         // Insérer(h,T)

@@ -255,6 +255,10 @@ majCoordonnees(&G, 0, 12.7, 3.1);
 void ajoutArete(Graphe* G, int u, int v, double poids)
 {
   Arete* a = (Arete*)malloc(sizeof(Arete));
+  if (a == NULL) {
+      fprintf(stderr, "ERREUR DE MALLOC pour l'arete %d - %d\n", u, v);
+      exit(EXIT_FAILURE);
+  }
   a->numA = G->nbA;
   a->u = u;
   a->v = v;

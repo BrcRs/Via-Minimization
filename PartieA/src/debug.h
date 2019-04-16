@@ -3,15 +3,16 @@
 debug.h
 Definit des macros de déboguage pratiques.
 
-EVITER D'UTILISER CE FICHIER
+EVITER D'UTILISER CE FICHIER dans le cas d'un segfault
 Preferer gdb (GNU debugger) :
 - compiler avec l'option -g 1 ou 2 ou 3
 - lancer l'executable avec gdb ./exec
+- taper run
 
 */
 #ifndef DEBUG_H
 #define DEBUG_H
-#define DEBUG_MODE_NO // replace by DEBUG_MODE_NO to disable debug features
+#define DEBUG_MODE_YES // replace by DEBUG_MODE_NO to disable debug features
 
 #ifdef DEBUG_MODE_YES
 #include <time.h>

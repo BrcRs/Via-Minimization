@@ -1,5 +1,5 @@
 CC = gcc
-COMPILE = $(CC) -fPIC -c
+COMPILE = $(CC) -g3 -c
 LINK = $(CC) -o $@
 CFLAGS = -Wall
 
@@ -21,7 +21,7 @@ check :
 #Compilation
 
 %.o : $(SRCDIR)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@
+	$(COMPILE) $< $(CFLAGS) -o $@
 
 #Edition des liens
 

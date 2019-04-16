@@ -14,7 +14,7 @@ void writeGraphToPostScript(Graphe *G, char* filename)
   yMax = findMaxY(G);
   // Faire ratioX = (595 + 50) / xMax
   ratioX = (595 - 50) / xMax;
-  // Faire ratioY = (842 + 50) / yMax
+  // Faire ratioY = (842 + 50) / yMax, 100 nous servura de marge pour evite qu'il deborde la marge
   ratioY = (842 - 100) / yMax;
   // Info : Pour chaque nouvelle coordonnee x, on fera x = x * ratioX + 50
   // Info : Pour chaque nouvelle coordonnee y, on fera y = y * ratioY + 100

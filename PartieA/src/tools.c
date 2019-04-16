@@ -6,7 +6,11 @@
 */
 char* tools_basename( char* src)
 {
-
+  if (src == NULL)
+  {
+    fprintf(stderr, "\nERREUR : chaine nulle");
+    exit(EXIT_FAILURE);
+  }
   int i = 0;
   while (src[i] != '\0')
   {
@@ -25,7 +29,7 @@ char* tools_basename( char* src)
     return NULL;
   }
 
-  char* dest = (char*)calloc(i, sizeof(char));
+  char* dest = (char*)malloc( sizeof(char) * i);
   strncpy(dest, src, i);
   return dest;
 }
