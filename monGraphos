@@ -5,6 +5,11 @@ fill
 260.000000 260.000000 moveto
 110.000000 260.000000 lineto
 stroke
+
+
+
+
+
 0 0 0 setrgbcolor
 110.000000 260.000000 moveto
 260.000000 260.000000 lineto
