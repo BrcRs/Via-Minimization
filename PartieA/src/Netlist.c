@@ -338,6 +338,11 @@ Cell_point* ptsListUnion(Cell_point* aList, Cell_point* bList)
 Netlist* creerNetlist(int NbRes, char* label)
 {
   Netlist* newNetlist = (Netlist*)malloc(sizeof(Netlist));
+  if (newNetlist == NULL) {
+      fprintf(stderr, "ERREUR DE MALLOC pour la Netlist %s\n", newNetlist->label);
+      exit(EXIT_FAILURE);
+  }
+  newNetlist->label = (char*)malloc(sizeof(char) * 50);
   strcpy(newNetlist->label, label);
   newNetlist->NbRes = NbRes;
 
